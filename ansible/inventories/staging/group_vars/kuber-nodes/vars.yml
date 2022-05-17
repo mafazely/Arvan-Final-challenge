@@ -1,6 +1,7 @@
 ---
 default_gateway4: 192.168.0.10
 ansible_user: ubuntu
+sshd_config: /etc/ssh/sshd_config
 
 # compose config
 install_docker_compose: false
