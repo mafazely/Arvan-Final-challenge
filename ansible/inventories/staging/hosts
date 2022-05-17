@@ -1,12 +1,12 @@
-; [kuber-workers]
-; worker1 ansible_host=192.168.0.20
-; worker2 ansible_host=192.168.0.30
-; worker3 ansible_host=192.168.0.40
+# [kuber-workers]
+# worker1 ansible_host=192.168.0.20
+# worker2 ansible_host=192.168.0.30
+# worker3 ansible_host=192.168.0.40
 
-; [kuber-masters]
-; master1 ansible_host=192.168.0.50
-; master2 ansible_host=192.168.0.60
-; master3 ansible_host=192.168.0.70
+# [kuber-masters]
+# master1 ansible_host=192.168.0.50
+# master2 ansible_host=192.168.0.60
+# master3 ansible_host=192.168.0.70
 
 [kuber-workers]
 worker1 ansible_host=192.168.0.188
