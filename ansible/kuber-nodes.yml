@@ -1,0 +1,16 @@
+---
+- name: Configure kuber nodes
+  hosts: "kuber-nodes"
+  remote_user: "{{ ansible_user }}"
+  become: true
+  become_method: sudo
+  connection: ssh
+  gather_facts: true
+  roles:
+    - add_users
+    - set_timezone
+    - configure_netplan
+    - basic_setup
+    - install_docker
+    - install_k8s
+    - configure_iptables
