@@ -1,0 +1,56 @@
+---
+- name: Create user accounts
+  ansible.builtin.user:
+    name: "{{ item.username }}"
+    # comment: "{{ item.realname }}"
+    shell: /bin/bash
+    groups: sudo,
+    append: true
+  with_items: "{{ users }}"
+
+- name: Add ssh keys
+  ansible.posix.authorized_key:
+    user: "{{ item.username }}"
+    state: present
+    key: "{{ item.ssh_key }}"
+  with_items: "{{ users }}"
+
+- name: Check if /etc/sudoers.d directory exists
+  ansible.builtin.file:
+    path: /etc/sudoers.d
+    state: directory
+    mode: 0750
+
+- name: Creating an empty file for sudo users configurations
+  ansible.builtin.file:
+    path: "/etc/sudoers.d/90-server-users"
+    state: touch
+    mode: 0644
+
+# Set all sudo users password prompt to off
+- name: turn password prompt off for sudo users
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/90-server-users
+    line: "{{ item.username }} ALL=(ALL) NOPASSWD:ALL"
+  with_items: "{{ users }}"
+
+- name: Disable remote root login
+  ansible.builtin.lineinfile:
+    dest: "{{ sshd_config }}"
+    regexp: "^#?PermitRootLogin"
+    line: "PermitRootLogin no"
+  notify: restart sshd
+
+- name: Disable password login
+  ansible.builtin.lineinfile:
+    dest: "{{ sshd_config }}"
+    regexp: '^(#\s*)?PasswordAuthentication '
+    line: "PasswordAuthentication no"
+  notify: restart sshd
+
+- name: Enable PAM
+  ansible.builtin.lineinfile:
+    dest: "{{ sshd_config }}"
+    regexp: "^#?UsePAM"
+    line: "UsePAM yes"
+  notify: restart sshd

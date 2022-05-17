@@ -1,0 +1,26 @@
+---
+- name: Configure kuber-gateway
+  hosts: "cluster-gateway"
+  remote_user: "{{ ansible_user }}"
+  become: true
+  become_method: sudo
+  connection: ssh
+  gather_facts: true
+  roles:
+    - add_users
+    - set_timezone
+    - configure_netplan
+    - config_forwarding
+    - basic_setup
+    - install_docker
+    - configure_iptables
+    # - gen_ssh_on_server
+
+
+# - name: Copy generated gateway SSH keys to nodes
+#   hosts: "joining-nodes"
+#   remote_user: "{{ ansible_user }}"
+#   become: true
+#   gather_facts: true
+#   roles:
+#     - copy_ssh_to_server
