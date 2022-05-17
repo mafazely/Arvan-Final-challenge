@@ -1,0 +1,5 @@
+---
+- name: Set timezone to desire zonetime
+  community.general.timezone:
+    name: "{{ zone_name }}"
+
