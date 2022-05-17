@@ -25,5 +25,5 @@ kuber-workers
 [cluster-gateway]
 gateway ansible_host=localhost ansible_connection=local
 
-; [gateway]
-; master ansible_host=localhost ansible_connection=local
+# [gateway]
+# master ansible_host=localhost ansible_connection=local
