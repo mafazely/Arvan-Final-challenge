@@ -7,10 +7,10 @@
   connection: ssh
   gather_facts: true
   roles:
-    # - add_users
-    # - set_timezone
-    # - configure_netplan
-    # - basic_setup
-    # - install_docker
+    - add_users
+    - set_timezone
+    - configure_netplan
+    - basic_setup
+    - install_docker
     - install_k8s
-    # - configure_iptables
+    - configure_iptables
