@@ -1,0 +1,17 @@
+---
+- name: SSH KeyGen command
+  become: true
+  become_user: "{{ ansible_user }}"
+  ansible.builtin.command: >
+    ssh-keygen -q -b 2048 -t rsa -N "" -C "{{ inventory_hostname }}" -f ~/.ssh/id_rsa
+    creates="~/.ssh/id_rsa"
+  register: res
+  changed_when: res.rc != 0
+
+- name: Fetch the keyfile from the node to master
+  become: true
+  become_user: "{{ ansible_user }}"
+  ansible.builtin.fetch:
+    src: "~/.ssh/id_rsa.pub"
+    dest: "fetched/ssh/keys/{{ inventory_hostname }}-id_rsa.pub"
+    flat: true

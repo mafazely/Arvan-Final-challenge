@@ -1,0 +1,30 @@
+---
+apply_install_essential_apt_packages: true
+default_essential_apt_packages:
+  - build-essential
+  - libssl-dev
+  - vim
+  - curl
+  - unzip
+  - git
+  - nano
+  - python3-pip
+  - python3-venv
+  - apt-transport-https
+  - ca-certificates
+  - netcat
+  - software-properties-common
+  - lsb-release
+  - gnupg-agent
+  - net-tools
+  - networkd-dispatcher
+  - python3-docker
+  - nload
+  - iotop
+  - htop
+
+apply_remove_apt_sources: true
+remove_apt_sources_targets:
+  - "deb http://mirror.arvancloud.com/ubuntu/ focal main restricted universe multiverse"
+  - "deb http://mirror.arvancloud.com/ubuntu/ focal-updates main restricted universe multiverse"
+  - "deb http://mirror.arvancloud.com/ubuntu/ focal-security main restricted universe multiverse"

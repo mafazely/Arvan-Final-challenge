@@ -1,0 +1,8 @@
+---
+- name: Copy all keys in specified group
+  authorized_key:
+    user: "{{ ansible_user }}"
+    state: present
+    key: "{{ lookup('file', 'fetched/ssh/keys/' + item + '-id_rsa.pub') }}"
+  with_inventory_hostnames:
+    - "{{ copy_ssh_key_to_servers_target_group }}"
