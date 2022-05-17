@@ -1,0 +1,37 @@
+---
+default_gateway4: 192.168.0.10
+ansible_user: ubuntu
+
+# compose config
+install_docker_compose: false
+
+users:
+  - username: aminTUF
+    ssh_key:
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDX56eBpEv3vAg2KlQ4oaoFo5xJ7YMAZa0P9Bg/A8C7zfpxhIl8cZi/92dOZpVVB/moqWBauTcchsWscrEveVB+4F3YV7K\
+      luLO1ckAyvDcooVqoNitMjGQD+RmCfqNuEb7uVj9BnjXJ3hO5gIm22nrR+HJMS5SpKfcv5cWJvgic9Dg9oFMJXdqR52oAYbCUzbcK1HCwe1XRMQMo3AlW5lc3ssuZOOD9e/MwoZQr+f\
+      opXyZhVKvkdyjSXq8cy9mDHIx9p//0Kmn/02i+5JgmilDBtqW5oHJmJfyqiX6qvMKX7+BZEZ5lfcnM/B5Fm22OYCH1eN9QNRK/N3VvEBY7pAraA/VIp66neLDNGTpS+yiHs2en1Ws8U\
+      mVl853nPoKXdMUzHfPRoooyBMvwJgR3Q3CMy1sNL/wuQeFvPvChqq/AB34tyrJxykBejYgahN5ynlYn9Tm/fxxoiyRgO6j1z2qS6pbGe2njLaJW6N23bzh/YrDBUKjrup0osVkhCNaa\
+      yxs= amin@amin-TUF-GAMING-FX504GD-FX80GD"
+
+# netplan config
+netplan_configurations:
+  ethernets:
+    eth0:
+      dhcp4: false
+      addresses:
+        - "{{ static_ip_prv }}/24"
+      nameservers:
+        addresses:
+          - "{{ default_dns_addresses.0 }}"
+          - "{{ default_dns_addresses.1 }}"
+      gateway4: "{{ default_gateway4 }}"
+      match:
+        macaddress: "{{ ansible_facts['eth0']['macaddress'] }}"
+      mtu: 1442
+      set-name: eth0
+
+iptables_filter_accept_tcp_rules:
+  - name: kuber
+    interface: eth0
+    port: "6443"

@@ -9,14 +9,14 @@
 # master3 ansible_host=192.168.0.70
 
 [kuber-workers]
-worker1 ansible_host=192.168.0.188
-worker2 ansible_host=192.168.0.248
-worker3 ansible_host=192.168.0.11
+worker1 ansible_host=192.168.0.188  static_ip_prv=192.168.0.20
+worker2 ansible_host=192.168.0.248  static_ip_prv=192.168.0.30
+worker3 ansible_host=192.168.0.11   static_ip_prv=192.168.0.40
 
 [kuber-masters]
-master1 ansible_host=192.168.0.110
-master2 ansible_host=192.168.0.26
-master3 ansible_host=192.168.0.211
+master1 ansible_host=192.168.0.110  static_ip_prv=192.168.0.50
+master2 ansible_host=192.168.0.26   static_ip_prv=192.168.0.60
+master3 ansible_host=192.168.0.211  static_ip_prv=192.168.0.70
 
 [kuber-nodes:children]
 kuber-masters
